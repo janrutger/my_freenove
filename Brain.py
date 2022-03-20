@@ -15,6 +15,6 @@ class Brain:
             
             if (distance - self.minDistance) > self.maxDistance:
                 distance = self.maxDistance + self.minDistance
-            print("berekende afstand", distance)
+                print("berekende afstand:", distance)
             power = round(((distance - self.minDistance) / self.maxDistance)*100)
             return((power,power,power,power))

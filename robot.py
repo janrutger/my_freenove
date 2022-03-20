@@ -17,7 +17,7 @@ class Auto:
         self.adc   = Adc()
 
         self.brain = b.Brain()
-        self.maxSpeed = 1500
+        self.maxSpeed = 1000
 
         
     def init_sonar(self):
@@ -31,9 +31,10 @@ class Auto:
         speed = []
         for i in power:
             speed.append(round((i/100)*self.maxSpeed))
-        #self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
-        print("calculated speed:", speed)
 
+        print("calculated speed:", speed)
+        #self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
+        
     def halt(self):
         self.motor.setMotorModel(0,0,0,0)
         self.sonar.init_sonar()
@@ -51,7 +52,7 @@ class Auto:
             self.drive(power)
 
             
-            time.sleep(0.2)
+            time.sleep(0.002)
 
 
 

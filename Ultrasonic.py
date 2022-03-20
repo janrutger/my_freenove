@@ -1,4 +1,6 @@
 import time
+
+from numpy import average
 from Motor import *
 import RPi.GPIO as GPIO
 from servo import *
@@ -26,7 +28,8 @@ class Ultrasonic:
             count = count-1
      
     def get_distance(self):
-        distance_cm=[0,0,0,0,0]
+        #distance_cm=[0,0,0,0,0]  #replaced by JRK
+        distance_cm = []
         for i in range(3):
             self.send_trigger_pulse()
             self.wait_for_echo(True,10000)
@@ -34,9 +37,12 @@ class Ultrasonic:
             self.wait_for_echo(False,10000)
             finish = time.time()
             pulse_len = finish-start
-            distance_cm[i] = pulse_len/0.000058
+            #distance_cm[i] = pulse_len/0.000058 #Repalced by JRK
+            distance_cm.append(pulse_len/0.000058)
         distance_cm=sorted(distance_cm)
-        return int(distance_cm[2])
+        print("distance array:", distance_cm)
+        #return int(distance_cm[1])
+        return int(average(distance_cm))
 
 
     def init_sonar(self):
