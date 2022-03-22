@@ -1,4 +1,5 @@
 #Freenover stuff
+from tkinter.messagebox import YES
 from Motor import *
 from Ultrasonic import *
 from ADC import *
@@ -18,6 +19,11 @@ class Auto:
 
         self.brain = b.Brain()
         self.maxSpeed = 1000
+        answer = input("Turn motor on (yes):")
+        if answer == "yes":
+            self.motorEnable = True
+        else:
+            self.motorEnable = False
 
         
     def init_sonar(self):
@@ -33,7 +39,9 @@ class Auto:
             speed.append(round((i/100)*self.maxSpeed))
 
         print("calculated speed:", speed)
-        #self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
+        if self.motorEnable:
+            print(self.motorEnable)
+            self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
         
     def halt(self):
         self.motor.setMotorModel(0,0,0,0)
