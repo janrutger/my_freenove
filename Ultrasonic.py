@@ -39,11 +39,26 @@ class Ultrasonic:
             pulse_len = finish-start
             #distance_cm[i] = pulse_len/0.000058 #Repalced by JRK
             distance_cm.append(pulse_len/0.000058)
-        distance_cm=sorted(distance_cm)
+        #distance_cm=sorted(distance_cm)
         print("distance array:", distance_cm)
         #return int(distance_cm[1])
         return int(average(distance_cm))
 
+    def get_angleDistance(self, angles, type):
+        distances = []
+        for i in angles:
+            #set the sonor
+            print(i, 90+i)
+            self.pwm_S.setServoPwm('0', (90 + i))
+            time.sleep(0.02)
+            #Get diastance
+            distance = self.get_distance()
+            distances.append(distance)
+        #report values
+        if type == "min":
+            return(min(distances))
+        else:
+            return(distances)
 
     def init_sonar(self):
         print("Init Sonar System")

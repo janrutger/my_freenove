@@ -1,5 +1,6 @@
 #Freenover stuff
 from tkinter.messagebox import YES
+from turtle import distance
 from Motor import *
 from Ultrasonic import *
 from ADC import *
@@ -24,6 +25,7 @@ class Auto:
             self.motorEnable = True
         else:
             self.motorEnable = False
+        
 
         
     def init_sonar(self):
@@ -54,13 +56,15 @@ class Auto:
     def run(self):
         while True:
             self.battery()
-            distance = self.sonar.get_distance()
+            #distance = self.sonar.get_distance()
+            distance = self.sonar.get_angleDistance((-10,0,10), "min")
+            print("distance array:", distance)
             power = self.brain.manual(distance)
             print("power percentage:", power)
             self.drive(power)
 
             
-            time.sleep(0.002)
+            time.sleep(5)
 
 
 
