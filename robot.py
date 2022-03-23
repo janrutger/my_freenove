@@ -1,6 +1,4 @@
 #Freenover stuff
-from tkinter.messagebox import YES
-from turtle import distance
 from Motor import *
 from Ultrasonic import *
 from ADC import *
@@ -19,7 +17,9 @@ class Auto:
         self.adc   = Adc()
 
         self.brain = b.Brain()
-        self.maxSpeed = 1500
+        self.maxSpeed = 800
+        self.minSpeed = 300
+        self.stopped = False
 
         self.sonar.init_sonar()
 
@@ -37,16 +37,19 @@ class Auto:
 
     def battery(self):
         battery=self.adc.recvADC(2)*3
-        print (battery)
+        print ("Battery :",battery)
 
     def drive(self, power):
         speed = []
         for i in power:
-            speed.append(round((i/100)*self.maxSpeed))
+            _speed = round((i/100)*self.maxSpeed)
+            if _speed < self.minSpeed and i != 0:
+                _speed = self.minSpeed
+            speed.append(_speed)
 
         print("calculated speed:", speed)
         if self.motorEnable:
-            print(self.motorEnable)
+            #print(self.motorEnable)
             self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
         
     def halt(self):
@@ -59,16 +62,21 @@ class Auto:
 
     def run(self):
         while True:
-            self.battery()
-            #distance = self.sonar.get_distance()
-            distance = self.sonar.get_angleDistance((-15,0,15), "min")
-            power = self.brain.manual(distance)
-            print("power percentage:", power)
-            self.drive(power)
+            if not self.stopped:
+                self.battery()
+                #distance = self.sonar.get_distance()
+                distance = self.sonar.get_angleDistance((-30,0,30), "min")
+                power, self.stopped = self.brain.manual(distance)
+                print("power percentage:", power)
+                self.drive(power)
 
-            
-            time.sleep(0.2)
-
+                #time.sleep(0.2)
+            else:
+                self.halt()
+                answer = input("Restart the car (yes):")
+                if answer == "yes":
+                    self.stopped = False
+               
 
 
 
