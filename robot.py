@@ -19,7 +19,11 @@ class Auto:
         self.adc   = Adc()
 
         self.brain = b.Brain()
-        self.maxSpeed = 1000
+        self.maxSpeed = 1500
+
+        self.sonar.init_sonar()
+
+    
         answer = input("Turn motor on (yes):")
         if answer == "yes":
             self.motorEnable = True
@@ -28,8 +32,8 @@ class Auto:
         
 
         
-    def init_sonar(self):
-        self.sonar.init_sonar()
+    #def init_sonar(self):
+    #    self.sonar.init_sonar()
 
     def battery(self):
         battery=self.adc.recvADC(2)*3
@@ -57,14 +61,13 @@ class Auto:
         while True:
             self.battery()
             #distance = self.sonar.get_distance()
-            distance = self.sonar.get_angleDistance((-10,0,10), "min")
-            print("distance array:", distance)
+            distance = self.sonar.get_angleDistance((-15,0,15), "min")
             power = self.brain.manual(distance)
             print("power percentage:", power)
             self.drive(power)
 
             
-            time.sleep(5)
+            time.sleep(0.2)
 
 
 
@@ -81,7 +84,6 @@ auto = Auto()
 if __name__ == '__main__':
     print ('Auto is starting up ... ')
     try:
-        auto.init_sonar()
         auto.run()
     except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
         print("Auto halted now ...")

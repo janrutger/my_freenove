@@ -48,11 +48,12 @@ class Ultrasonic:
         distances = []
         for i in angles:
             #set the sonor
-            print(i, 90+i)
+            
             self.pwm_S.setServoPwm('0', (90 + i))
-            time.sleep(0.02)
+            time.sleep(0.2)
             #Get diastance
             distance = self.get_distance()
+            print(i, 90+i, distance)
             distances.append(distance)
         #report values
         if type == "min":
