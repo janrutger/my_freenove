@@ -11,10 +11,11 @@ class Brain:
         print("gemeten afstand:", distance)
         if distance < self.minDistance:
             return((0,0,0,0), True)
-        else:           
-            if (distance - self.minDistance) > self.maxDistance:
-                distance = self.maxDistance + self.minDistance
-                print("berekende afstand:", distance)
-
-        power = round(((distance - self.minDistance) / self.maxDistance)*100)
-        return((power,power,power,power), False)
+        else: 
+            distance = distance - self.minDistance       
+            if distance > self.maxDistance:
+                distance = self.maxDistance
+                
+            print("berekende afstand:", distance)
+            power = round((distance / self.maxDistance)*100)
+            return((power,power,power,power), False)

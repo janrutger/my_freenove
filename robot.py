@@ -43,11 +43,13 @@ class Auto:
         speed = []
         for i in power:
             _speed = round((i/100)*self.maxSpeed)
-            if _speed < self.minSpeed and i != 0:
+            if _speed < self.minSpeed and _speed >= self.minSpeed * 0.1:
                 _speed = self.minSpeed
+            if _speed < self.minSpeed and _speed < self.minSpeed * 0.9:
+                _speed = 0
             speed.append(_speed)
-
         print("calculated speed:", speed)
+
         if self.motorEnable:
             #print(self.motorEnable)
             self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
