@@ -43,7 +43,7 @@ class Auto:
         speed = []
         for i in power:
             _speed = round((i/100)*self.maxSpeed)
-            if _speed < self.minSpeed and _speed >= self.minSpeed * 0.1:
+            if _speed < self.minSpeed and _speed >= self.minSpeed * 0.9:
                 _speed = self.minSpeed
             if _speed < self.minSpeed and _speed < self.minSpeed * 0.9:
                 _speed = 0
