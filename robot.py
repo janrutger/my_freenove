@@ -67,8 +67,8 @@ class Auto:
             if not self.stopped:
                 self.battery()
                 #distance = self.sonar.get_distance()
-                distance = self.sonar.get_angleDistance((-30,0,30), "min")
-                power, self.stopped = self.brain.manual(distance)
+                distances = self.sonar.get_angleDistance((-30,0,30))
+                power, self.stopped = self.brain.drive(distances)
                 print("power percentage:", power)
                 self.drive(power)
 

@@ -40,7 +40,7 @@ class Ultrasonic:
         #print("distance array:", distance_cm)
         return int(average(distance_cm))
 
-    def get_angleDistance(self, angles, type):
+    def get_angleDistance(self, angles):
         distances = []
         for i in angles:
             #set the sonor
@@ -49,13 +49,14 @@ class Ultrasonic:
             time.sleep(0.2)
             #Get diastance
             distance = self.get_distance()
-            print(i, 90+i, distance)
-            distances.append(distance)
+            if i < 0:
+                print(i, 90+i, -distance)
+                distances.append(-distance)
+            else:
+                print(i, 90+i, distance)
+                distances.append(distance)
         #report values
-        if type == "min":
-            return(min(distances))
-        else:
-            return(distances)
+        return(distances)
 
     def init_sonar(self):
         print("Init Sonar System")
