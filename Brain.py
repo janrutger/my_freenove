@@ -30,17 +30,17 @@ class Brain:
 
             if avg(leftDistances) + avg(rightDistances) > 0:
                 leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
-                leftPower  = leftPower * 1.0
+                leftPower  = abs(leftPower) * 1.0
                 rightPower = round((avg(rightDistances) / self.maxDistance)*100)
                 rightPower = rightPower * 0.8
             elif avg(leftDistances) + avg(rightDistances) < 0:
                 leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
-                leftPower  = leftPower * 0.8
+                leftPower  = abs(leftPower) * 0.8
                 rightPower = round((avg(rightDistances) / self.maxDistance)*100)
                 rightPower = rightPower * 1.0
             else:
                 leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
-                leftPower  = leftPower * 1.0
+                leftPower  = abs(leftPower) * 1.0
                 rightPower = round((avg(rightDistances) / self.maxDistance)*100)
                 rightPower = rightPower * 1.0
                 
