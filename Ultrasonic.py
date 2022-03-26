@@ -42,6 +42,7 @@ class Ultrasonic:
 
     def get_angleDistance(self, angles):
         distances = []
+        distancesU = []
         for i in angles:
             #set the sonor
             
@@ -55,8 +56,11 @@ class Ultrasonic:
             else:
                 print(i, 90+i, distance)
                 distances.append(distance)
+            distancesU.append(distance)
+
         #report values
-        return(distances)
+        result = (distances, distancesU)
+        return(result)
 
     def init_sonar(self):
         print("Init Sonar System")
