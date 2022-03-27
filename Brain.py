@@ -9,12 +9,12 @@ class Brain:
 
     def drive(self, distances):
         print("gemeten afstand:", distances)
-        if min(distances[1]) < self.minDistance:
+        if min(distances[0]) < self.minDistance: #all vallues unsinged
             return((0,0,0,0), True)
         else:
             leftDistances  = []
             rightDistances = []
-            for d in [distances[0][0], distances[0][2]]:
+            for d in distances[1]:  #only singed values
                 if d < 0:
                     if abs(d) < self.maxDistance:
                         leftDistances.append(d)

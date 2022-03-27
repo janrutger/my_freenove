@@ -41,25 +41,23 @@ class Ultrasonic:
         return int(average(distance_cm))
 
     def get_angleDistance(self, angles):
+        distancesSigned = []
         distances = []
-        distancesU = []
         for i in angles:
-            #set the sonor
-            
+            #set the sonor 
             self.pwm_S.setServoPwm('0', (90 + i))
             time.sleep(0.2)
             #Get diastance
             distance = self.get_distance()
             if i < 0:
-                print(i, 90+i, -distance)
-                distances.append(-distance)
-            else:
-                print(i, 90+i, distance)
-                distances.append(distance)
-            distancesU.append(distance)
+                distancesSigned.append(-distance)
+            elif i > 0:
+                distancesSigned.append(distance)
+            print(i, 90+i, distance)
+            distances.append(distance)
 
         #report values
-        result = (distances, distancesU)
+        result = (distances, distancesSigned)
         return(result)
 
     def init_sonar(self):

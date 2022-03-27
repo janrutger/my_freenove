@@ -47,7 +47,7 @@ class Auto:
                 _speed = self.minSpeed
             if _speed < self.minSpeed and _speed < self.minSpeed * 0.9:
                 _speed = 0
-            speed.append(_speed)
+            speed.append(int(_speed))
         print("calculated speed:", speed)
 
         if self.motorEnable:
@@ -58,9 +58,6 @@ class Auto:
         self.motor.setMotorModel(0,0,0,0)
         self.sonar.init_sonar()
         
-
-
-
 
     def run(self):
         while True:
@@ -79,14 +76,6 @@ class Auto:
                 if answer == "yes":
                     self.stopped = False
                
-
-
-
-
-
-
-
-
 
 
 

@@ -70,10 +70,10 @@ class Motor:
  
     def setMotorModel(self,duty1,duty2,duty3,duty4):
         duty1,duty2,duty3,duty4=self.duty_range(duty1,duty2,duty3,duty4)
-        self.left_Upper_Wheel(-duty1)
-        self.left_Lower_Wheel(-duty2) 
-        self.right_Upper_Wheel(int(-duty3 * 0.8))
-        self.right_Lower_Wheel(int(-duty4 * 0.8))
+        self.left_Upper_Wheel(int(-duty1  * 1.30))
+        self.left_Lower_Wheel(int(-duty2  * 1.30)) 
+        self.right_Upper_Wheel(int(-duty3 * 1.00))
+        self.right_Lower_Wheel(int(-duty4 * 1.00))
         
             
             
