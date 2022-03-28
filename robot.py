@@ -15,11 +15,10 @@ class Auto:
         self.motor = Motor()
         self.sonar = Ultrasonic()
         self.adc   = Adc()
-
         self.brain = b.Brain()
+        
         self.maxSpeed = 800
         self.minSpeed = 300
-        self.stopped = False
 
         self.sonar.init_sonar()
 
@@ -60,12 +59,13 @@ class Auto:
         
 
     def run(self):
+        stopped = False
         while True:
-            if not self.stopped:
+            if not stopped:
                 self.battery()
                 #distance = self.sonar.get_distance()
                 distances = self.sonar.get_angleDistance((-30,0,30))
-                power, self.stopped = self.brain.drive(distances)
+                power, stopped = self.brain.drive(distances)
                 print("power percentage:", power)
                 self.drive(power)
 
@@ -74,7 +74,7 @@ class Auto:
                 self.halt()
                 answer = input("Restart the car (yes):")
                 if answer == "yes":
-                    self.stopped = False
+                    stopped = False
                
 
 

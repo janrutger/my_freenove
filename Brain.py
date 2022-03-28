@@ -4,7 +4,7 @@ from numpy import average as avg
 
 class Brain:
     def __init__(self):
-        self.maxDistance = 80
+        self.maxDistance = 60
         self.minDistance = 30
 
     def drive(self, distances):
