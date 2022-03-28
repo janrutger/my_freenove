@@ -26,23 +26,18 @@ class Brain:
                     else:
                         rightDistances.append(self.maxDistance)
             print("berekende afstanden:", avg(leftDistances), avg(rightDistances))
-            
 
+            rightPower = round((avg(rightDistances) / self.maxDistance)*100)
+            leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
             if avg(leftDistances) + avg(rightDistances) > 0:
-                leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
                 leftPower  = abs(leftPower) * 1.0
-                rightPower = round((avg(rightDistances) / self.maxDistance)*100)
-                rightPower = rightPower * 0.5
+                rightPower = rightPower * 0.1
             elif avg(leftDistances) + avg(rightDistances) < 0:
-                leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
-                leftPower  = abs(leftPower) * 0.5
-                rightPower = round((avg(rightDistances) / self.maxDistance)*100)
+                leftPower  = abs(leftPower) * 0.1
                 rightPower = rightPower * 1.0
             else:
-                leftPower  =  round((avg(leftDistances) / self.maxDistance)*100)
                 leftPower  = abs(leftPower) * 1.0
-                rightPower = round((avg(rightDistances) / self.maxDistance)*100)
                 rightPower = rightPower * 1.0
-                
-            
+                           
+            print("power percentage:", (leftPower,leftPower,rightPower,rightPower))
             return((leftPower,leftPower,rightPower,rightPower), False)

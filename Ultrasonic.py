@@ -65,11 +65,11 @@ class Ultrasonic:
         #self.pwm_S.setServoPwm('1', 120)
         self.pwm_S.setServoPwm('0', 120)
         time.sleep(1)
-        self.pwm_S.setServoPwm('1', 105)
+        #self.pwm_S.setServoPwm('1', 105)
         self.pwm_S.setServoPwm('0', 60)
         time.sleep(1)
         self.pwm_S.setServoPwm('0', 90)
-        self.pwm_S.setServoPwm('1', 120)
+        #self.pwm_S.setServoPwm('1', 120)
         time.sleep(1)
         self.pwm_S.setServoPwm('1', 90)
 

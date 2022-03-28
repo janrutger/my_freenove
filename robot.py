@@ -16,7 +16,7 @@ class Auto:
         self.sonar = Ultrasonic()
         self.adc   = Adc()
         self.brain = b.Brain()
-        
+
         self.maxSpeed = 800
         self.minSpeed = 300
 
@@ -42,9 +42,9 @@ class Auto:
         speed = []
         for i in power:
             _speed = round((i/100)*self.maxSpeed)
-            if _speed < self.minSpeed and _speed >= self.minSpeed * 0.9:
+            if abs(_speed) < self.minSpeed and abs(_speed) >= self.minSpeed * 0.9:
                 _speed = self.minSpeed
-            if _speed < self.minSpeed and _speed < self.minSpeed * 0.9:
+            if abs(_speed) < self.minSpeed and abs(_speed) < self.minSpeed * 0.9:
                 _speed = 0
             speed.append(int(_speed))
         print("calculated speed:", speed)
@@ -63,10 +63,8 @@ class Auto:
         while True:
             if not stopped:
                 self.battery()
-                #distance = self.sonar.get_distance()
                 distances = self.sonar.get_angleDistance((-30,0,30))
                 power, stopped = self.brain.drive(distances)
-                print("power percentage:", power)
                 self.drive(power)
 
                 #time.sleep(0.2)
