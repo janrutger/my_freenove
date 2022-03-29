@@ -4,6 +4,7 @@ from Ultrasonic import *
 from ADC import *
 
 #system stuff
+from numpy import average as avg
 import time
 
 #My stuff
@@ -52,6 +53,8 @@ class Auto:
         if self.motorEnable:
             #print(self.motorEnable)
             self.motor.setMotorModel(speed[0], speed[1], speed[2],speed[3])
+        return(speed)
+
         
     def halt(self):
         self.motor.setMotorModel(0,0,0,0)
@@ -65,7 +68,9 @@ class Auto:
                 self.battery()
                 distances = self.sonar.get_angleDistance((-30,0,30))
                 power, stopped = self.brain.drive(distances)
-                self.drive(power)
+                speed = self.drive(power)
+                if not stopped and avg(speed) == 0:
+                    pass
 
                 #time.sleep(0.2)
             else:
