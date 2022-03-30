@@ -43,10 +43,12 @@ class Auto:
         speed = []
         for i in power:
             _speed = round((i/100)*self.maxSpeed)
-            if abs(_speed) < self.minSpeed and abs(_speed) >= self.minSpeed * 0.75:
-                _speed = self.minSpeed
-            if abs(_speed) < self.minSpeed and abs(_speed) < self.minSpeed * 0.75:
+            if abs(_speed) < self.minSpeed * 1.1:
                 _speed = 0
+            # if abs(_speed) < self.minSpeed and abs(_speed) >= self.minSpeed * 0.9:
+            #     _speed = self.minSpeed
+            # if abs(_speed) < self.minSpeed and abs(_speed) < self.minSpeed * 0.9:
+            #     _speed = 0
             speed.append(int(_speed))
         print("calculated speed:", speed)
 
