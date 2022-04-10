@@ -32,10 +32,21 @@ class Brain:
         if min(distances[0]) < self.minDistance: #all vallues unsigned
             return((0,0,0,0), True)
         else:
-            leftDistances, rightDistances = self.avgDistances(distances[1])
+            leftDistance, rightDistance = self.avgDistances(distances[1])
 
-            leftPower  = round(((avg(rightDistances) - self.minDistance) / self.maxDistance)*100)
-            rightPower = round(((avg(leftDistances)  - self.minDistance) / self.maxDistance)*100)
+            leftPower  = round(((rightDistance - self.minDistance) / self.maxDistance)*100)
+            rightPower = round(((leftDistance  - self.minDistance) / self.maxDistance)*100)
                            
             print("power percentage:", (leftPower,leftPower,rightPower,rightPower))
             return((leftPower,leftPower,rightPower,rightPower), False)
+
+    def turn(self, distances):
+        print("gemeten afstand:", distances)
+        if min(distances[0]) < self.minDistance: #all vallues unsigned
+            return((-100, -100, -100, -100), 0.3)
+        else:
+            avgLeftDistance, avgRightDistance = self.avgDistances(distances[1])
+            if avgLeftDistance < avgRightDistance:
+                return ((100, 100, -100, -100), 0.5)
+            else:
+                return((-100, -100, 100, 100), 0.5)

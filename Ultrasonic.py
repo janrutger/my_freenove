@@ -53,7 +53,7 @@ class Ultrasonic:
                 distancesSigned.append(-distance)
             elif i > 0:
                 distancesSigned.append(distance)
-            print(i, 90+i, distance)
+            #print(i, 90+i, distance)
             distances.append(distance)
 
         #report values

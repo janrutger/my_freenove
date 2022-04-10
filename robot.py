@@ -21,9 +21,10 @@ class Auto:
         self.maxSpeed = 800
         self.minSpeed = 300
 
-        self.sonar.init_sonar()
 
-    
+        print("------- STARTING -------")
+        self.sonar.init_sonar()
+        self.battery()
         answer = input("Turn motor on (yes):")
         if answer == "yes":
             self.motorEnable = True
@@ -43,12 +44,8 @@ class Auto:
         speed = []
         for i in power:
             _speed = round((i/100)*self.maxSpeed)
-            if abs(_speed) < self.minSpeed * 1.1:
+            if abs(_speed) < self.minSpeed * 1.3:
                 _speed = 0
-            # if abs(_speed) < self.minSpeed and abs(_speed) >= self.minSpeed * 0.9:
-            #     _speed = self.minSpeed
-            # if abs(_speed) < self.minSpeed and abs(_speed) < self.minSpeed * 0.9:
-            #     _speed = 0
             speed.append(int(_speed))
         print("calculated speed:", speed)
 
@@ -59,6 +56,7 @@ class Auto:
 
         
     def halt(self):
+        print("------- HALTING -------")
         self.motor.setMotorModel(0,0,0,0)
         self.sonar.init_sonar()
         
@@ -67,14 +65,19 @@ class Auto:
         stopped = False
         while True:
             if not stopped:
-                self.battery()
+                print("------- NEXT RUN -------")
                 distances = self.sonar.get_angleDistance((-30,0,30))
                 power, stopped = self.brain.drive(distances)
                 speed = self.drive(power)
                 if not stopped and avg(speed) == 0:
-                    pass
+                    time.sleep(0.5)
+                    distances = self.sonar.get_angleDistance((-60, -30, 0, 30, 60))
+                    power, timer = self.brain.turn(distances)
+                    _ = self.drive(power)
+                    time.sleep(timer)
+                    self.motor.setMotorModel(0,0,0,0)
+                    #stopped = True
 
-                #time.sleep(0.2)
             else:
                 self.halt()
                 answer = input("Restart the car (yes):")
